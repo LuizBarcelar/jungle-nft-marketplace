@@ -15,7 +15,7 @@ import { CheckoutPage } from "@/features/checkout/CheckoutPage";
 import { ProfilePage } from "@/features/profile/ProfilePage";
 import { WalletPage } from "@/features/profile/WalletPage";
 
-import "@/kurio.css";
+import "@/Kurio.css";
 
 const rootRoute = createRootRoute({
   component: RootLayout,
