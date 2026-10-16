@@ -14,6 +14,8 @@ import { AuthPage } from "@/features/auth/AuthPage";
 import { CheckoutPage } from "@/features/checkout/CheckoutPage";
 import { ProfilePage } from "@/features/profile/ProfilePage";
 import { WalletPage } from "@/features/profile/WalletPage";
+import { CreatorsPage } from "@/features/creators/CreatorsPage";
+import { LearnPage } from "@/features/learn/LearnPage";
 
 import "@/Kurio.css";
 
@@ -105,6 +107,18 @@ const walletRoute = createRoute({
   component: WalletPage,
 });
 
+const creatorsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/creators",
+  component: CreatorsPage,
+});
+
+const learnRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/learn",
+  component: LearnPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   detailRoute,
@@ -114,6 +128,8 @@ const routeTree = rootRoute.addChildren([
   loginRoute,
   profileRoute,
   walletRoute,
+  creatorsRoute,
+  learnRoute,
 ]);
 
 export const router = createRouter({

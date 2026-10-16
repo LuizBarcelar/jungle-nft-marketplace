@@ -72,8 +72,19 @@ export function Shell({
               Mercado
             </Link>
 
-            <span>Criadores</span>
-            <span>Aprenda</span>
+            <Link
+              to="/creators"
+              activeProps={{ className: "active" }}
+            >
+              Criadores
+            </Link>
+
+            <Link
+              to="/learn"
+              activeProps={{ className: "active" }}
+            >
+              Aprenda
+            </Link>
           </nav>
 
           <div className="kurio-header-actions">
@@ -125,6 +136,25 @@ export function Shell({
       </header>
 
       <div className="kurio-content">
+        <nav
+          className="kurio-mobile-extra-links"
+          aria-label="Explorar Kurio"
+        >
+          <Link
+            to="/creators"
+            activeProps={{ className: "active" }}
+          >
+            Criadores
+          </Link>
+
+          <Link
+            to="/learn"
+            activeProps={{ className: "active" }}
+          >
+            Aprenda
+          </Link>
+        </nav>
+
         {children}
       </div>
 
