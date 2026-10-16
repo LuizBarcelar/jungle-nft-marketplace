@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import {
   Search,
@@ -25,19 +25,55 @@ export type CatalogSearch = {
 
 const perPage = 6;
 
+type MobileSearchProps = {
+  initialQuery: string;
+  onSearch: (query: string) => void;
+  onToggleFilters: () => void;
+};
+
+function MobileSearch({
+  initialQuery,
+  onSearch,
+  onToggleFilters,
+}: MobileSearchProps) {
+  const [draft, setDraft] = useState(initialQuery);
+
+  return (
+    <form
+      className="mobile-search"
+      onSubmit={(event) => {
+        event.preventDefault();
+        onSearch(draft.trim());
+      }}
+    >
+      <Search size={20} />
+
+      <input
+        value={draft}
+        onChange={(event) => setDraft(event.target.value)}
+        placeholder="Explorar coleções"
+        aria-label="Buscar NFTs"
+      />
+
+      <button
+        type="button"
+        onClick={onToggleFilters}
+        aria-label="Abrir filtros"
+      >
+        <SlidersHorizontal />
+      </button>
+    </form>
+  );
+}
+
 export function Home() {
   const search = useSearch({ from: "/" }) as CatalogSearch;
   const navigate = useNavigate({ from: "/" });
 
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [draft, setDraft] = useState(search.q ?? "");
 
-  // Socket.IO: atualizações demonstrativas em tempo real
+  // Socket.IO: atualizações demonstrativas em tempo real.
   const { connected, updates } = useRealtimePrices();
-
-  useEffect(() => {
-    setDraft(search.q ?? "");
-  }, [search.q]);
 
   const update = (patch: Partial<CatalogSearch>) =>
     navigate({
@@ -80,7 +116,7 @@ export function Home() {
   const nfts = data?.data ?? [];
   const totalPages = data?.pagination.totalPages ?? 0;
 
-  // Mantém a última atualização recebida de cada NFT.
+  // Mantém as cinco atualizações mais recentes do mercado.
   const recentUpdates = Object.values(updates)
     .sort(
       (a, b) =>
@@ -122,30 +158,16 @@ export function Home() {
       </section>
 
       {/* BUSCA MOBILE */}
-      <form
-        className="mobile-search"
-        onSubmit={(event) => {
-          event.preventDefault();
-          update({ q: draft.trim() || undefined });
-        }}
-      >
-        <Search size={20} />
-
-        <input
-          value={draft}
-          onChange={(event) => setDraft(event.target.value)}
-          placeholder="Explorar coleções"
-          aria-label="Buscar NFTs"
-        />
-
-        <button
-          type="button"
-          onClick={() => setFiltersOpen(!filtersOpen)}
-          aria-label="Abrir filtros"
-        >
-          <SlidersHorizontal />
-        </button>
-      </form>
+      <MobileSearch
+        key={search.q ?? ""}
+        initialQuery={search.q ?? ""}
+        onSearch={(query) =>
+          update({ q: query || undefined })
+        }
+        onToggleFilters={() =>
+          setFiltersOpen((open) => !open)
+        }
+      />
 
       {/* CATÁLOGO */}
       <div className="market-layout" id="catalog">
