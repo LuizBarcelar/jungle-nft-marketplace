@@ -2,20 +2,22 @@
 import { Server } from "socket.io";
 import { nfts } from "../src/features/catalog/data";
 
-const PORT = 3001;
+const PORT = Number(process.env.PORT || 3001);
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  process.env.FRONTEND_URL,
+].filter((origin): origin is string => Boolean(origin));
 
 const io = new Server(PORT, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
-    ],
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
   },
 });
 
-console.log(
-  `Kurio Socket.IO ativo em http://localhost:${PORT}`,
-);
+console.log(`Kurio Socket.IO ativo na porta ${PORT}`);
 
 io.on("connection", (socket) => {
   console.log("Cliente conectado:", socket.id);
@@ -32,8 +34,7 @@ io.on("connection", (socket) => {
 setInterval(() => {
   if (nfts.length === 0) return;
 
-  const nft =
-    nfts[Math.floor(Math.random() * nfts.length)];
+  const nft = nfts[Math.floor(Math.random() * nfts.length)];
 
   const changePercent = Number(
     (Math.random() * 10 - 5).toFixed(2),
