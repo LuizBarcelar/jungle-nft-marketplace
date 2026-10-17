@@ -759,6 +759,31 @@ select:focus-visible {
   .footer-benefits {
     grid-template-columns: repeat(2, 1fr);
   }
+  .kurio-header {
+    display: block;
+    height: auto;
+  }
+
+  .kurio-header-inner {
+    flex-wrap: wrap;
+    padding: 14px 20px;
+    gap: 12px;
+  }
+
+  .kurio-desktop-nav {
+    display: flex !important;
+    order: 3;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .kurio-desktop-nav > a {
+    height: auto;
+    padding: 10px 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -780,24 +805,6 @@ select:focus-visible {
 
   .kurio-info-notice {
     padding: 24px;
-  }
-
-  .kurio-mobile-extra-links {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    padding: 16px;
-  }
-
-  .kurio-mobile-extra-links a {
-    color: #a1a1aa;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .kurio-mobile-extra-links a.active {
-    color: #a78bfa;
   }
 }
 
@@ -1148,4 +1155,105 @@ select:focus-visible {
   .simple-page {
     padding-top: 35px;
   }
+}
+.kurio-mobile-extra-links {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .kurio-desktop-nav {
+    display: none;
+  }
+
+  .kurio-mobile-extra-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 14px 16px;
+  }
+
+  .kurio-mobile-extra-links a {
+    color: #d4d4d8;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .kurio-mobile-extra-links a:hover,
+  .kurio-mobile-extra-links a.active {
+    color: #d9904e;
+  }
+}
+
+/* Cabeçalho compacto e responsivo */
+
+@media (min-width: 651px) and (max-width: 950px) {
+  .kurio-header {
+    height: 64px;
+  }
+
+  .kurio-header-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 14px;
+  }
+
+  .kurio-brand {
+    flex-shrink: 0;
+  }
+
+  .kurio-desktop-nav {
+    display: flex !important;
+    order: 0;
+    width: auto;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: clamp(8px, 1.5vw, 18px);
+  }
+
+  .kurio-desktop-nav > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .kurio-header-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 12px;
+  }
+
+  .kurio-header-actions svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .kurio-header-actions .kurio-button {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+.kurio-search-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.kurio-search-trigger:hover {
+  color: #d58b4b;
 }
