@@ -7,6 +7,7 @@ const PORT = Number(process.env.PORT || 3001);
 const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
+  "https://jungle-nft-marketplace-lemon.vercel.app",
   process.env.FRONTEND_URL,
 ].filter((origin): origin is string => Boolean(origin));
 
